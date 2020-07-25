@@ -10,7 +10,7 @@ $factory->define(Task::class, function (Faker $faker) {
         'title' => $faker->sentence,
         'text' => $faker->text,
         'priority' => $faker->randomElement(['high', 'middle', 'low']),
-        'status' => $faker->randomElement(['new', 'in_progress','canceled']),
+        'status' => $faker->randomElement(['new', 'in_progress','canceled', 'completed']),
         'finish_at' => $faker->dateTimeBetween('- 1 days', '+ 1 days'),
     ];
 });

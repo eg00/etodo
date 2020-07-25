@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -61,5 +60,30 @@ class User extends Authenticatable
     public function tasks(): HasMany
     {
         return $this->hasMany(Task::class, 'user_id', 'id');
+    }
+
+    /**
+     * @return string
+     */
+    public function getNameAttribute(): string
+    {
+        return "$this->last_name $this->first_name $this->middle_name";
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAllTasksAttribute()
+    {
+        if ($this->staff->isEmpty()) {
+            return $this->tasks;
+        }
+        $tasks = $this->tasks;
+
+        foreach ($this->staff as $person) {
+            $tasks = $tasks->merge($person->tasks);
+        }
+
+        return $tasks->sortByDesc('updated_at');
     }
 }
