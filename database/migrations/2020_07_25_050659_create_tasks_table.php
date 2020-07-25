@@ -16,7 +16,7 @@ class CreateTasksTable extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('text');
+            $table->text('text')->nullable();
             $table->enum('priority', ['high', 'middle', 'low']);
             $table->enum('status', ['new', 'in_progress', 'completed', 'canceled']);
             $table->unsignedBigInteger('manager_id')->nullable();
@@ -29,8 +29,8 @@ class CreateTasksTable extends Migration
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
+            $table->timestamp('finish_at', 0)->nullable();
             $table->timestamps();
-            $table->timestamp('finished_at', 0)->nullable();
         });
     }
 
