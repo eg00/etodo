@@ -10,9 +10,10 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-auto">
+                                {{ __('Group by') }}
                             </div>
                             <div class="col">
-                                <div class="btn-group mb-3" role="group" aria-label="Basic example">
+                                <div class="btn-group mb-3" role="group">
                                     <a href="{{route('tasks.index')}}?groupBy=date" type="button"
                                        class="btn btn-outline-primary {{ $groupBy === 'date' ? 'active' : '' }}">
                                         {{__('By date')}}
@@ -25,7 +26,7 @@
                                     @endif
                                     <a href="{{route('tasks.index')}}" type="button"
                                        class="btn btn-outline-primary {{ $groupBy === null ? 'active' : '' }}">
-                                        Без группировок
+                                        {{__('Without groups')}}
                                     </a>
                                 </div>
                             </div>

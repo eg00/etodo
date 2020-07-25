@@ -8,7 +8,7 @@
                 <small>{{__('Priority')}}: {{__($task->priority)}}</small>
             </div>
 
-            <p>{{__('Finish ')}}{{$task->finish_at}}</p>
+            <p>{{__('Finish')}}: {{$task->finish_at->format('d.m.Y')}}</p>
             <p>{{__('Responsible')}}: {{__($task->name)}}</p>
 
             <p>{{__('Status')}}: {{__($task->status)}}</p>
