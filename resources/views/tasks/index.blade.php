@@ -40,7 +40,9 @@
                         @endempty
                     </div>
                     <div class="card-footer text-right">
-                        <a href="#" class="btn btn-primary">{{__('New task')}}</a>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addTaskModal">
+                            {{__('New task')}}
+                        </button>
                     </div>
                 </div>
             </div>
@@ -49,3 +51,4 @@
     </div>
 
 @endsection
+@include('tasks.modals.addTaskModal')

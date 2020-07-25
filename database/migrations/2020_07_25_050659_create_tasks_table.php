@@ -18,7 +18,7 @@ class CreateTasksTable extends Migration
             $table->string('title');
             $table->text('text')->nullable();
             $table->enum('priority', ['high', 'middle', 'low']);
-            $table->enum('status', ['new', 'in_progress', 'completed', 'canceled']);
+            $table->enum('status', ['new', 'in_progress', 'completed', 'canceled'])->default('new');
             $table->unsignedBigInteger('manager_id')->nullable();
             $table->foreign('manager_id')
                 ->references('id')
@@ -29,7 +29,7 @@ class CreateTasksTable extends Migration
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
-            $table->timestamp('finish_at', 0)->nullable();
+            $table->timestamp('finish_at', 0)->useCurrent();
             $table->timestamps();
         });
     }

@@ -27,7 +27,7 @@ class TaskController extends Controller
      */
     public function index(Request $request)
     {
-        if ( $groupBy = $request->get('groupBy')) {
+        if ($groupBy = $request->get('groupBy')) {
             $tasks = auth()->user()->all_tasks->groupBy($groupBy);
         } else {
             $tasks = auth()->user()->all_tasks;
@@ -47,10 +47,14 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
+
+        $request->user()->tasks()->create($request->all());
+
+        return redirect()->back();
     }
 
     /**
