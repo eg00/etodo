@@ -76,6 +76,7 @@
             @yield('content')
         </main>
     </div>
+    <div id="dtBox"></div>
     @yield('scripts')
 </body>
 </html>

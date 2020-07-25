@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Task;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
@@ -71,23 +72,25 @@ class TaskController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
-     *
-     * @return Response
+     * @param Task $task
+     * @return Application|Factory|Response|View
      */
-    public function edit($id)
+    public function edit(Task $task): View
     {
+        return \view('tasks.modals.editTaskModal', compact('task'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param int $id
-     *
-     * @return Response
+     * @param Request $request
+     * @param Task $task
+     * @return void
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Task $task)
     {
+        $task->update($request->all());
+        return redirect()->back();
     }
 
     /**

@@ -45,7 +45,6 @@
                         <div class='input-group date' id='finaldatepicker'>
                             <input id="finish_at" name="finish_at" type='text' class="form-control"
                                    data-field="datetime"/>
-                            <div id="dtBox"></div>
                         </div>
                     </div>
 
