@@ -54,7 +54,11 @@ class TaskController extends Controller
     public function store(Request $request)
     {
 
-        $request->user()->tasks()->create($request->all());
+        $task = $request->user()->tasks()->create($request->all());
+        if($request->filled('user_id')) {
+            $task->user_id = $request->input('user_id');
+            $task->save();
+        }
 
         return redirect()->back();
     }

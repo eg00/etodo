@@ -70,7 +70,17 @@
                             <input type="text" class="form-control" value="{{$task->priority}}" readonly/>
                         @endcan
                     </div>
-
+                    @if(count(auth()->user()->staff))
+                        <div class="form-group mt-4">
+                            <label for="responsible">{{__('Responsible')}}</label>
+                            <select name="user_id" class="form-control" id="priority">
+                                <option value="{{auth()->user()->id}}">{{auth()->user()->name}}</option>
+                                @foreach(auth()->user()->staff as $user)
+                                    <option value="{{$user->id}}">{{$user->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    @endif
                     <div class="form-group mt-4">
                         <label for="finish_at">{{__('Finish')}}</label>
                         <div class='input-group date' id='finaldatepicker'>
