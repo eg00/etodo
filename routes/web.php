@@ -1,10 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes([
     'register' => false,
@@ -13,5 +10,4 @@ Auth::routes([
     'confirm' => false
 ]);
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('tasks', 'TaskController');
+Route::resource('tasks', 'TaskController')->except(['create', 'show', 'destroy']);

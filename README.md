@@ -1,61 +1,109 @@
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
+# **Приложение TODO list**
+<details>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+**Описание**
 
-## About Laravel
+Ваша задача - разработать web приложение, пользователь которого сможет планировать свою деятельность и контролировать работу своих подчиненных при помощи механизма управления задачами.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+**Сущности**
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Задача обладает следующим набором атрибутов:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Заголовок
+- Описание
+- Датаокончания
+- Датасоздания
+- Датаобновления
+- Приоритет (высокий, средний, низкий)
+- Статус (квыполнению, выполняется, выполнена, отменена)
+- Создатель - пользователь
+- Ответственный - пользователь
 
-## Learning Laravel
+Пользователь:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- Имя
+- Фамилия
+- Отчество
+- Логин
+- Пароль
+- Руководитель - пользователь
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+**Описание системы**
 
-## Laravel Sponsors
+**Страница авторизации**
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+При любой попытке доступа к системе пользователю сперва требуется пройти процесс авторизации.
 
-### Premium Partners
+На странице авторизации отобразите форму с двумя текстовыми полями: логином и паролем, после ввода которых при успешной проверке пользователь перенаправляется на страницу с задачами.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
+При неуспешной попытке авторизации отобразите на странице одну из возможных ошибок: пользователя с таким логином не существует, пользователь ввел не верный пароль.
 
-## Contributing
+**Страница с задачами**
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+На странице с задачами отобразите список задач со следующими возможностями отображения:
 
-## Code of Conduct
+- С группировкой по дате завершения: задачи авторизованного пользователя на сегодня, на неделю, на будущее (больше чем нанеделю)
+- С группировкой по ответственным (режим просмотра для руководителя)
+- Без группировок: список всех задач, отсортированных по дате последнего обновления
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Заголовки незавершенных задач с датой окончания &lt; текущая дата отображаются красным цветом. Заголовки завершенных задач отображаются зеленым цветом. Остальные - серым.
 
-## Security Vulnerabilities
+В списке для каждой задачи отобразите: заголовок, приоритет, датуокончания, ответственного, статус
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+При клике на задачу открывается модальное окно с возможностью редактирования атрибутов выбранной задачи.
 
-## License
+На странице также присутствует кнопка &quot;Новая задача&quot; при нажатии на которую открывается всё тоже модальное окно с возможностью создания новой задачи.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+**Требования**
+
+- пароли пользователей нельзя хранить в незашифрованном виде;
+- пользователь может получить доступ к приложению только после авторизации;
+- Язык программирования - PHP или node.js;
+- все сущности должны храниться в реляционной бд: mysql, postgresql или другой;
+- пользователи не могут изменять атрибуты задач, созданных их руководителями, кроме статуса;
+- пользователь не может указать в качестве ответственного задачи другого пользователя, который не является его подчиненным;
+- решение нужно предоставить в виде исходного кода залитого на github;
+- есть миграции и инструкция по их запуску;
+- для сборки фронта используются препроцессоры и/или сборщики для CSS и JS: webpack или другое.
+
+**Будет плюсом, если**
+
+- вы воспользуетесь библиотеками и/или фреймворками;
+- вы развернете приложение на какой-нибудь платформе для демонстрации. Например на [heroku](https://www.heroku.com/).
+
+<summary><ins>Задание</ins></summary>
+</details>
+
+
+## Демо
+
+https://etodo.2ql.ru/
+
+## Установка и запуск
+
+```shell
+    git clone git clone https://github.com/eg00/etodo.git
+    cd etodo
+	cp .env.example .env
+```
+
+### в локальной среде:
+
+```shell
+    composer install
+    php artisan key:generate
+	php artisan serve
+```
+**Настроить параметры БД в файле .env** 
+
+```shell
+     php artisan migrate:fresh --seed
+```
+
+### при использовании docker
+```shell
+docker-compose up -d
+docker exec -it php composer install
+docker exec -it php ./artisan key:generate
+docker exec -it php ./artisan migrate:fresh --seed
+```
