@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Task;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
@@ -48,7 +49,7 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {
@@ -85,10 +86,11 @@ class TaskController extends Controller
      *
      * @param Request $request
      * @param Task $task
-     * @return void
+     * @return RedirectResponse
      */
-    public function update(Request $request, Task $task)
+    public function update(Request $request, Task $task): RedirectResponse
     {
+        $this->authorize('update', $task);
         $task->update($request->all());
         return redirect()->back();
     }
