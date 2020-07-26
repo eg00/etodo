@@ -119,19 +119,4 @@ class Task extends Model
 
         return 'Past';
     }
-
-    /**
-     * @return bool
-     */
-    public function getEditableAttribute(): bool
-    {
-
-        if ($this->manager_id === auth()->user()->id) {
-            return true;
-        }
-        if ($this->manager_id === null && $this->user_id === auth()->user()->id) {
-            return true;
-        }
-        return false;
-    }
 }

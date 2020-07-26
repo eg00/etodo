@@ -22,7 +22,7 @@
                                class="form-control @error('title') is-invalid @enderror"
                                name="title" value="{{ old('title') ?? $task->title }}" required
                                autocomplete="title" autofocus
-                            {{$task->editable ? '' : 'readonly'}}>
+                               @cannot('edit-task', $task) readonly @endcannot>
                     </div>
 
                     <div class="form-group mt-4">
@@ -30,11 +30,12 @@
                             :</label>
                         <textarea rows="3" name="text"
                                   class="form-control form-control-lg" id="taskDescription" required
-                        {{$task->editable ? '' : 'readonly'}}>{{ old('text') ?? $task->text }}</textarea>
+                                  @cannot('edit-task', $task) readonly @endcannot>{{ old('text') ?? $task->text }}
+                        </textarea>
                     </div>
 
                     <div class="form-group mt-4">
-                        <label for="priority">{{__('Priority')}}</label>
+                        <label for="priority">{{__('Status')}}</label>
                         <select name="status" class="form-control" id="priority">
                             <option value="new" {{$task->status === 'new' ? 'selected' : ''}}>
                                 {{__('new')}}
@@ -53,7 +54,7 @@
 
                     <div class="form-group mt-4">
                         <label for="priority">{{__('Priority')}}</label>
-                        @if($task->editable)
+                        @can('edit-task', $task)
                             <select name="priority" class="form-control" id="priority">
                                 <option value="low" {{$task->priority === 'low' ? 'selected' : ''}}>
                                     {{__('low')}}
@@ -67,7 +68,7 @@
                             </select>
                         @else
                             <input type="text" class="form-control" value="{{$task->priority}}" readonly/>
-                        @endif
+                        @endcan
                     </div>
 
                     <div class="form-group mt-4">
@@ -75,7 +76,7 @@
                         <div class='input-group date' id='finaldatepicker'>
                             <input id="finish_at" name="finish_at" type='text' class="form-control"
                                    value="{{ old('finish_at') ?? $task->finish_at->format('d-m-Y H:i') }}"
-                                {{$task->editable ? 'data-field="datetime"' : 'readonly'}}/>
+                                   @can('edit-task', $task) data-field="datetime" @else readonly @endcan/>
 
                         </div>
                     </div>
