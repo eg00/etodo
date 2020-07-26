@@ -11,3 +11,5 @@ Auth::routes([
 ]);
 
 Route::resource('tasks', 'TaskController')->except(['create', 'show', 'destroy']);
+Route::get('org', 'OrgController');
+Route::redirect('/', 'org');

@@ -16,6 +16,7 @@
         "datetimepicker": "^0.1.39",
         "jquery": "^3.5.1",
         "laravel-mix": "^5.0.4",
+        "orgchart.js": "^0.0.4",
         "popper.js": "^1.12",
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.20.1",

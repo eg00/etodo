@@ -16,11 +16,11 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // managers seed
-        $managers = $this->createUsers(10);
+        $managers = $this->createUsers(10, 1);
 
         // user seed
         foreach ($managers->pluck('id') as $manager_id) {
-            $this->createUsers(10, $manager_id);
+            $this->createUsers(random_int(1, 10), 3, $manager_id);
         }
     }
 
@@ -28,16 +28,22 @@ class DatabaseSeeder extends Seeder
      * @return Collection|Model|mixed
      * @throws Exception
      */
-    private function createUsers($amount, $manager = null): Collection
+    private function createUsers($amount, $nested = 3, $manager = null): Collection
     {
 
-        return factory(User::class, $amount)
+        $users  = factory(User::class, $amount)
             ->create(['manager_id' => $manager])->each(function ($user) {
                 factory(\App\Task::class, random_int(2, 10))->create([
                     'manager_id' => $user->manager_id,
                     'user_id' => $user->id,
-
                 ]);
             });
+        for ($i = $nested; $i >= 1; $i--) {
+            foreach ($users->pluck('id') as $user_id) {
+                $this->createUsers(random_int(1, 3), 0, $user_id);
+            }
+        }
+
+        return $users;
     }
 }
