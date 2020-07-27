@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
@@ -65,5 +66,12 @@ class LoginController extends Controller
         throw ValidationException::withMessages([
             'password' => [trans('auth.failed')],
         ]);
+    }
+
+    protected function authenticated(Request $request, $user)
+    {
+        return $request->wantsJson()
+            ? new Response($user, 200)
+            : redirect()->intended($this->redirectPath());
     }
 }
