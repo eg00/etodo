@@ -10,6 +10,13 @@ Auth::routes([
     'confirm' => false
 ]);
 
+Route::prefix('old')->group(function () {
 Route::resource('tasks', 'TaskController')->except(['create', 'show', 'destroy']);
+//Route::redirect('/', 'org');
+});
+
 Route::get('org', 'OrgController');
-Route::redirect('/', 'org');
+
+Route::get('/{any}', fn() => view('layouts.spa'))->where('any', '.*');
+
+
