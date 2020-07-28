@@ -14,14 +14,14 @@ export default new Vuex.Store({
         }
     },
     mutations: {
-        setUser(state, payload) {
-            state.user = payload;
+        setUser(state, user) {
+            state.user = user;
         },
         toggleLoading(state, payload) {
             state.isLoading = payload
         },
-        setTasks(state, payload) {
-            state.tasks = payload;
+        setTasks(state, tasks) {
+            state.tasks = tasks;
         },
     },
     actions: {

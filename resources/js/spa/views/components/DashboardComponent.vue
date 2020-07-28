@@ -1,7 +1,7 @@
 <template>
     <b-row class="justify-content-md-center" >
         <b-col md="8">
-            <b-card title="Tasks">
+            <b-card no-body title="Tasks">
                 <b-card-body>
                     <b-row class="mb-3">
                         <b-col sm="auto">
@@ -32,6 +32,9 @@
                         </b-col>
                     </b-row>
                 </b-card-body>
+                <b-card-footer class="text-right">
+                    <create-task-component :group-by="groupBy"/>
+                </b-card-footer>
             </b-card>
         </b-col>
     </b-row>
@@ -40,9 +43,10 @@
 <script>
 import TasksComponent from "./TasksComponent";
 import { mapState, mapActions} from "vuex";
+import CreateTaskComponent from "./CreateTaskComponent";
 
 export default {
-    components: {TasksComponent},
+    components: {CreateTaskComponent, TasksComponent},
     name: "DashboardComponent",
     data() {
         return {

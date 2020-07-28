@@ -11,8 +11,7 @@
             </div>
 
             <div class="modal-body">
-                <form id="add-product-form" method="POST" action="{{route('tasks.store')}}"
-                      aria-label="Добавление товара">
+                <form id="add-product-form" method="POST" action="{{route('tasks.store')}}">
                     @csrf
                     <div class="form-group mt-4">
                         <label for="title"
