@@ -39,6 +39,13 @@ class User extends Authenticatable
     ];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['name'];
+
+    /**
      * @return BelongsTo
      */
     public function manager(): BelongsTo

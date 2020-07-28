@@ -8,12 +8,12 @@
                     <div class="card-header">{{ __('Tasks') }}</div>
 
                     <div class="card-body">
-                        <div class="row">
+                        <div class="row mb-3">
                             <div class="col-auto">
                                 {{ __('Group by') }}
                             </div>
                             <div class="col">
-                                <div class="btn-group mb-3" role="group">
+                                <div class="btn-group" role="group">
                                     <a href="{{route('tasks.index')}}?groupBy=date" type="button"
                                        class="btn btn-outline-primary {{ $groupBy === 'date' ? 'active' : '' }}">
                                         {{__('By date')}}

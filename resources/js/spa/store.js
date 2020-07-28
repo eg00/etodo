@@ -1,31 +1,56 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import router from './router'
+
 Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
-        user: {}
+        isLoading: true,
+        user: {},
+        tasks: [],
     },
     getters: {
         auth(state) {
-            return  !!state.user.first_name;
+            return !!state.user.first_name;
         }
     },
     mutations: {
-        setUser (state, payload) {
+        setUser(state, payload) {
             state.user = payload;
-        }
+        },
+        toggleLoading(state, payload) {
+            state.isLoading = payload
+        },
+        setTasks(state, payload) {
+            state.tasks = payload;
+        },
     },
     actions: {
-        checkAuth({commit, state, getters}) {
-            if(!getters.auth) {
+        checkAuth({commit, dispatch, getters}) {
+            if (!getters.auth) {
                 axios.get('/api/user')
                     .then(({data}) => {
                         commit('setUser', data)
-                        router.push({ name: 'Tasks'})
+                        dispatch('getTasks');
+
                     })
-                    .catch((res) => console.log(res));
+                    .catch((res) => console.log(res))
+                    .finally(() => commit('toggleLoading', false))
             }
+        },
+        handleLogout({commit}) {
+            commit('toggleLoading', true)
+            axios.post('/logout')
+                .then(() => {
+                    commit('setUser', {})
+                    commit('toggleLoading', false)
+                })
+        },
+        getTasks({commit}, groupBy) {
+            axios.get('api/tasks', {params: {groupBy}})
+                .then(({data}) => {
+                    commit('setTasks', data)
+                })
         }
+
     }
 })

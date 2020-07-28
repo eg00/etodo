@@ -1,45 +1,57 @@
 <template>
     <div>
-        <nav class="navbar navbar-expand-md navbar-light blue lighten-4">
-            <div class="container">
-                <ul class="navbar-nav">
-                    <router-link tag="li" class="nav-item" active-class="active" to="/tasks">
-                        <a class="nav-link"> Tasks</a>
-                    </router-link>
+        <b-navbar toggleable="lg">
+            <b-container>
+                <b-navbar-brand href="#">etodo</b-navbar-brand>
 
-                </ul>
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            name <span class="caret"></span>
-                        </a>
+                <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#"
-                               onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                logout
-                            </a>
+                <b-collapse id="nav-collapse" is-nav>
 
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+
+                    <!-- Right aligned nav items -->
+                    <b-navbar-nav class="ml-auto">
+                        <b-nav-item-dropdown :text="user.name" right v-if="auth">
+                            <b-dropdown-item @click="handleLogout">Logout</b-dropdown-item>
+                        </b-nav-item-dropdown>
+
+                    </b-navbar-nav>
+                </b-collapse>
+            </b-container>
+        </b-navbar>
         <main class="py-4">
-            <div class="container">
-                <router-view></router-view>
-            </div>
+            <b-container>
+                <b-overlay :show="isLoading">
+                    <login-component v-if="!auth"/>
+                    <dashboard-component v-else/>
+                </b-overlay>
+            </b-container>
+
         </main>
     </div>
 </template>
 <script>
+import {mapActions, mapGetters, mapState, mapMutations} from "vuex";
+import LoginComponent from "./components/LoginComponent";
+import DashboardComponent from "./components/DashboardComponent";
+
+
 export default {
-    watch: {
-        '$route'(to) {
-            document.title = to.meta.title
-        }
+    components: {DashboardComponent, LoginComponent},
+    data() {
+        return {}
     },
+    beforeMount() {
+        this.checkAuth();
+    },
+    computed: {
+        ...mapState(["user", "isLoading", "tasks"]),
+        ...mapGetters(["auth"]),
+    },
+    methods: {
+        ...mapActions(['checkAuth', 'handleLogout']),
+        ...mapMutations(['toggleLoading']),
+
+    }
 }
 </script>

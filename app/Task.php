@@ -32,7 +32,7 @@ class Task extends Model
      *
      * @var array
      */
-    protected $appends = ['name'];
+    protected $appends = ['name', 'css_class'];
 
     /**
      * The relations to eager load on every query.

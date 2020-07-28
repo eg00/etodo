@@ -11,12 +11,11 @@ if (token) {
 
 window.Vue = require('vue');
 import Vue from 'vue';
-import router from './router';
 import store from './store';
+import { BootstrapVue } from 'bootstrap-vue'
 Vue.component('app-layout', require('./views/Layout.vue').default);
-
+Vue.use(BootstrapVue)
 const app = new Vue({
     el: '#app',
-    router,
     store
 });
