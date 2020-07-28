@@ -84,7 +84,7 @@ https://etodo.2ql.ru/
 ```shell
     git clone git clone https://github.com/eg00/etodo.git
     cd etodo
-	cp .env.example .env
+    cp .env.example .env
 ```
 
 ### в локальной среде:
@@ -92,7 +92,7 @@ https://etodo.2ql.ru/
 ```shell
     composer install
     php artisan key:generate
-	php artisan serve
+    php artisan serve
 ```
 **Настроить параметры БД в файле .env** 
 
