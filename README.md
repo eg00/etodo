@@ -97,7 +97,7 @@ https://etodo.2ql.ru/
 **Настроить параметры БД в файле .env** 
 
 ```shell
-     php artisan migrate:fresh --seed
+   php artisan migrate:fresh --seed
 ```
 
 ### при использовании docker
@@ -107,3 +107,12 @@ docker exec -it php composer install
 docker exec -it php ./artisan key:generate
 docker exec -it php ./artisan migrate:fresh --seed
 ```
+
+### логины и пароли
+
+Логины можно посмотреть на станице /org или 
+```shell
+./artisan tinker --execute  "dump(App\User::all()->pluck('username'))"
+```
+
+пароль - **password**
